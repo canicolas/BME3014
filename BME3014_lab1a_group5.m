@@ -97,7 +97,7 @@ derdata = derdata(delay:end);
 % Square the derivative
 % (10) Create a new variable (dersquared) that contains the derivative
 %    squared
-dersquared = 
+dersquared = derdata.*derdata;
 
 % Plot data after derivative filter and squaring
 subplot(n,1,3)
