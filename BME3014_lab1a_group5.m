@@ -63,9 +63,13 @@ lpdata = lpdata(delay:end);
 %   by the filter (Explicitely stated in the paper)--account for this delay
 %   as was done for the low pass filter
 
-B = 
+B = zeros(1,33);  %let me know if this is correct or not guys - Rosina
+B(1) = -1/32;
+B(17) = 1;
+B(18) = -1;
+B(33) = 1;
 
-A = 
+A = [1 -1];
 
 hpdata = filter(B,A,lpdata);%apply the high pass filter to the data
 
