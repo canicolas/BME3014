@@ -2,7 +2,7 @@
 %% GROUP INFORMATION
 %--> In these comments input group number and member names
 % Group number:
-% Group members: Claire Nicolas
+% Group members: Claire Nicolas, Rosina Comatas
 
 %% DEFINE INPUTS
 % (1) Set the filename here to match your baseline file
