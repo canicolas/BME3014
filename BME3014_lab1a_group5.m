@@ -8,7 +8,7 @@
 % (1) Set the filename here to match your baseline file
 % (2) Set the 'Fs' variable to match your sampling frequency in Hz
 fname = 
-Fs = 
+Fs =  200;
 
 %% Load data into matlab
 % (3) Use the 'importdata' or 'dlmread' matlab function to read the text from your data
