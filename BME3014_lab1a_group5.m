@@ -157,8 +157,15 @@ threshdata(intdata > level) = true; % Create a thresholded array
 
 %Get points where data changes
 
-qrsstart =  
-qrsend = 
+qrsstart =  [ ];
+qrsend = [ ] ;
+for i = 1: size(threshdata)
+    if threshdata(i-1) == 0 ||threshdata(i)==1
+        qrsstart = [qrsstart ; intdata(i,:)];
+    elseif threshdata(i) == 1 || threshdata(i+1)==0
+        qrsend = [qrsend; intdata(i,:)];
+    end
+end
 
 %% Code to find mxima of each QRS wave
 rpeak = zeros(size(qrsstart));
