@@ -43,7 +43,7 @@ B = zeros(1, 13);
 B(:,1)= 1;
 B(:,7)= -2;
 B(:,13) = 1 ;
-B
+
 A = [1 -2 1];
 
 lpdata = filter(B,A,rawdata); % Apply the lowpass filter to the data
@@ -67,7 +67,7 @@ B = zeros(1,33);  %let me know if this is correct or not guys - Rosina
 B(1) = -1/32;
 B(17) = 1;
 B(18) = -1;
-B(33) = 1;
+B(33) = 1/32;
 
 A = [1 -1];
 
