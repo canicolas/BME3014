@@ -117,10 +117,11 @@ subplot(n,1,3)
 % (12) Use the filter function to apply the moving window integration filter 
 
 
+N = 30 % num of samples in width
 B = 
 A = 
 
-intdata = 
+intdata = filter(B, A, dersquared);
 
 intdata = intdata/max(intdata); % Normalize intdata
 
