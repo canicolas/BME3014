@@ -118,7 +118,7 @@ subplot(n,1,3)
 
 
 N = 30 % num of samples in width
-B = 1/30*ones(1,30)
+B = 1/N*ones(1,N)
 A = 1
 
 intdata = filter(B, A, dersquared);
