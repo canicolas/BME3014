@@ -117,9 +117,9 @@ subplot(n,1,3)
 % (12) Use the filter function to apply the moving window integration filter 
 
 
-N = 30 % num of samples in width
-B = 1/N*ones(1,N)
-A = [1]
+N = 30; % num of samples in width
+B = 1/N*ones(1,N);
+A = [1];
 
 intdata = filter(B, A, dersquared);
 
@@ -162,52 +162,51 @@ qrsend = [ ] ;
 threshdatadiff = diff(threshdata);
 for i = 1: size(threshdatadiff)  %use diff in some kind of way 
     if threshdatadiff(i) == 1
-        qrsstart = [qrsstart ; intdata(i,:)];
+        qrsstart = [qrsstart ; i]; % qrsstart = [qrsstart ; intdata(i,:)];
     elseif threshdatadiff(i) == -1 
-        qrsend = [qrsend; intdata(i,:)];
-    end
-   
-      
+        qrsend = [qrsend; i]; %qrsend = [qrsend; intdata(i,:)];
+    end   
 end
 
-% %% Code to find mxima of each QRS wave
-% rpeak = zeros(size(qrsstart));
-% amp = zeros(size(qrsstart));
-% % find peaks and troughs of qrs waves
-% for i = 1:length(qrsstart)
-%   [qrsmax,curind] = max(hpdata(qrsstart(i):qrsend(i)));
-%   rpeak(i) = curind+qrsstart(i)-1;
-%   [qrsmin,~] = min(hpdata(qrsstart(i):qrsend(i)));
-%   amp(i) = qrsmax-qrsmin;
-% end
-% 
-% % Determine rr-intervals
-% rrint = diff(rpeak)/Fs; % convert intervals from frames to seconds
-% 
-% % (18) Convert the rrint to instantaneous heart rate in beats per minute
-% HR = length(rpeak)/(rrint*0.0016667)
-% 
-% %% Plot final results
-%      
-%     subplot(n,1,6)
-%     plot(time(samples),hpdata(samples),'b-')
-%     title('Selected ECG sections from threshold')
-%     xlabel('Time (s)')
-%     
-%     regiondata = hpdata(samples).*threshdata(samples);
-%     regiondata(regiondata==0)=NaN;
-%     hold on
-%     plot(time(samples),regiondata,'r-')
-%     
-%     figure
-%     title('Band pass filtered signal with fiducial marks')
-%     xlabel('Time (s)')
-%     ylabel('Filtered ECG signal (V)')
-%     plot(time(samples),hpdata(samples),'b-')
-%     hold on
-%     plot(time(rpeak(rpeak<max(samples))),hpdata(rpeak(rpeak<max(samples))),'ro')
-% 
-% %% IF YOU HAVE TIME AT THE END OF DAY 1
-% % -Determine a method to track heart rate changes over time
-% % -Refer to the papers for lab 1B (3/23) on myWPI and begin attempting to
-% %   extract respiratory rate data from the ECG signal
+%% Code to find mxima of each QRS wave
+rpeak = zeros(size(qrsstart));
+amp = zeros(size(qrsstart));
+
+% find peaks and troughs of qrs waves
+for i = 1:length(qrsstart)
+  [qrsmax,curind] = max(hpdata(qrsstart(i):qrsend(i)))
+  rpeak(i) = curind+qrsstart(i)-1;
+  [qrsmin,~] = min(hpdata(qrsstart(i):qrsend(i)));
+  amp(i) = qrsmax-qrsmin;
+end
+
+% Determine rr-intervals
+rrint = diff(rpeak)/Fs; % convert intervals from frames to seconds
+
+% (18) Convert the rrint to instantaneous heart rate in beats per minute
+HR = length(rpeak)/(rrint*0.0016667)
+
+%% Plot final results
+     
+    subplot(n,1,6)
+    plot(time(samples),hpdata(samples),'b-')
+    title('Selected ECG sections from threshold')
+    xlabel('Time (s)')
+    
+    regiondata = hpdata(samples).*threshdata(samples);
+    regiondata(regiondata==0)=NaN;
+    hold on
+    plot(time(samples),regiondata,'r-')
+    
+    figure
+    title('Band pass filtered signal with fiducial marks')
+    xlabel('Time (s)')
+    ylabel('Filtered ECG signal (V)')
+    plot(time(samples),hpdata(samples),'b-')
+    hold on
+    plot(time(rpeak(rpeak<max(samples))),hpdata(rpeak(rpeak<max(samples))),'ro')
+
+%% IF YOU HAVE TIME AT THE END OF DAY 1
+% -Determine a method to track heart rate changes over time
+% -Refer to the papers for lab 1B (3/23) on myWPI and begin attempting to
+%   extract respiratory rate data from the ECG signal
