@@ -159,17 +159,16 @@ threshdata(intdata > level) = true % Create a thresholded array
 
 qrsstart =  [ ];
 qrsend = [ ] ;
-threshdatadiff = diff(threshdata)
-for i = 1: size(threshdata)  %use diff in some kind of way 
-    if threshdata(i) == 1
+threshdatadiff = diff(threshdata);
+for i = 1: size(threshdatadiff)  %use diff in some kind of way 
+    if threshdatadiff(i) == 1
         qrsstart = [qrsstart ; intdata(i,:)];
-    elseif threshdata(i) ==  -1 
+    elseif threshdatadiff(i) == -1 
         qrsend = [qrsend; intdata(i,:)];
     end
+   
+      
 end
-
-qrsstart ;
-qrsend
 
 % %% Code to find mxima of each QRS wave
 % rpeak = zeros(size(qrsstart));
