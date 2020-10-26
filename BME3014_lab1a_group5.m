@@ -7,7 +7,7 @@
 %% DEFINE INPUTS
 % (1) Set the filename here to match your baseline file
 % (2) Set the 'Fs' variable to match your sampling frequency in Hz
-fname = importdata('C:\Users\canicolas\Downloads\Lab1_Claire_Resting.txt');
+fname = importdata('C:\Users\Owner\OneDrive - Worcester Polytechnic Institute (wpi.edu)\2020-2021\Bterm\BME3014-Signal Processin Lab\Lab1\Lab1_Claire_Resting.txt');
 Fs = 200;
 
 %% Load data into matlab
@@ -48,7 +48,7 @@ A = [1 -2 1];
 
 lpdata = filter(B,A,rawdata); % Apply the lowpass filter to the data
 
-Account for the data delay caused by the filter (check Pan and Tompkins)
+%Account for the data delay caused by the filter (check Pan and Tompkins)
 delay = 5;
 lpdata = lpdata(delay:end);
 
@@ -142,7 +142,7 @@ intdata = intdata(delay:end);
 %   implementation of the moving window integration.
 % (14) Using this graph, choose an appropriate threshold level to isolate the
 %   QRS waves
-level = 
+level = 0.2
 
 threshdata = false(size(intdata)); % Create a thresholded array
 threshdata(intdata > level) = true; % Create a thresholded array
@@ -159,10 +159,10 @@ threshdata(intdata > level) = true; % Create a thresholded array
 
 qrsstart =  [ ];
 qrsend = [ ] ;
-for i = 1: size(threshdata)
+for i = 1: size(threshdata)  %use diff in some kind of way 
     if threshdata(i-1) == 0 ||threshdata(i)==1
         qrsstart = [qrsstart ; intdata(i,:)];
-    elseif threshdata(i) == 1 || threshdata(i+1)==0
+    elseif threshdata(i) == true || threshdata(i+1)==false
         qrsend = [qrsend; intdata(i,:)];
     end
 end
@@ -182,7 +182,7 @@ end
 rrint = diff(rpeak)/Fs; % convert intervals from frames to seconds
 
 % (18) Convert the rrint to instantaneous heart rate in beats per minute
-HR = 
+HR = length(rpeak)/(rrint*0.0016667)
 
 %% Plot final results
      
