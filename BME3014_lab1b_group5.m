@@ -10,26 +10,31 @@ fs = 200;
 time = fname.data(:,1);
 breath = fname.data(:,4);
 
-
 figure 
 plot(time, breath)
 xlabel('time [s]')
 ylabel('breath [V]')
 title('Respiration data')
 
-filter = pwelch(breath);
-DelayVal = grpdelay(filter);
-delay = DelayVal(1) ;
 
-%lowpass =designfilt('lowpassfir','CutoffFrequency',0.9,'SampleRate',fs);
-lowpass = designfilt('lowpassfir', 'FilterOrder', 10,'CutoffFrequency', 0.5, 'SampleRate', 200);
-
+lowpass = designfilt('lowpassfir','PassbandFrequency',0.45, 'StopbandFrequency', 1.55,'PassbandRipple',1,'StopbandAttenuation',60,'SampleRate',200);
 lpdata= filter(lowpass, breath);
 lpDelayVal = grpdelay(lowpass);
-delay = lpDelayVal(1) ;
+lpdelay = round(lpDelayVal(1));
+lptime = time(lpdelay:end);
 
 figure 
-plot(time(delay:end), lpdata)
+plot(lptime, lpdata(lpdelay:end))
+xlabel('time [s]')
+ylabel('breath [V]')
+title('Respiration data')
+
+
+welchdata = pwelch(lpdata(lpdelay:end));
+
+
+figure 
+plot(lptime, welchdata)
 xlabel('time [s]')
 ylabel('breath [V]')
 title('Respiration data')
