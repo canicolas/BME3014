@@ -17,6 +17,19 @@ xlabel('time [s]')
 ylabel('breath [V]')
 title('Respiration data')
 
+filter = pwelch(breath);
+DelayVal = grpdelay(filter);
+delay = DelayVal(1) ;
 
-lowpass =designfilt('lowpassfir','PassbandFrequency',250, 'StopbandFrequency', 325,'StopbandAttenuation',65,'SampleRate',1000);
+%lowpass =designfilt('lowpassfir','CutoffFrequency',0.9,'SampleRate',fs);
+lowpass = designfilt('lowpassfir', 'FilterOrder', 10,'CutoffFrequency', 0.5, 'SampleRate', 200);
 
+lpdata= filter(lowpass, breath);
+lpDelayVal = grpdelay(lowpass);
+delay = lpDelayVal(1) ;
+
+figure 
+plot(time(delay:end), lpdata)
+xlabel('time [s]')
+ylabel('breath [V]')
+title('Respiration data')
