@@ -182,9 +182,9 @@ end
 
 % Determine rr-intervals
 rrint = diff(rpeak)/Fs; % convert intervals from frames to seconds
-
+rrintmean = mean(rrint);
 % (18) Convert the rrint to instantaneous heart rate in beats per minute
-HR = length(rpeak)/(rrint*0.0016667)
+HR = 60/rrintmean
 
 %% Plot final results
      
