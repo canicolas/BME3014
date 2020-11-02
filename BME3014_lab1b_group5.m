@@ -32,6 +32,19 @@ title('Respiration data')
 
 welchdata = pwelch(lpdata(lpdelay:end));
 
+% rosina: 
+% ok so I used
+
+% pwelch(lpdata(lpdelay:end))
+% and putting just that gives a curve that looks like the right shape, but it has a bunch of waves in it
+
+%and then i did this
+% pwelch(lpbdata(lpdelay:end),[],[],[],200)
+
+%and it looks just like the previous one, just shifted up a little
+%and i'm not sure which one is prefered
+
+
 
 figure 
 plot(lptime, welchdata)
