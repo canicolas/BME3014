@@ -1,13 +1,13 @@
 
 %% GROUP INFORMATION
 %--> In these comments input group number and member names
-% Group number:
+% Group number: 5
 % Group members: Claire Nicolas, Rosina Comatas, Rositsa Mihaleva
 
 %% DEFINE INPUTS
 % (1) Set the filename here to match your baseline file
 % (2) Set the 'Fs' variable to match your sampling frequency in Hz
-fname = importdata('C:\Users\Owner\OneDrive - Worcester Polytechnic Institute (wpi.edu)\2020-2021\Bterm\BME3014-Signal Processin Lab\Lab1\Lab1_Claire_Resting.txt');
+fname = importdata('Lab1_Claire_Resting.txt');
 Fs = 200;
 
 %% Load data into matlab
@@ -168,12 +168,15 @@ for i = 1: size(threshdatadiff)  %use diff in some kind of way
     end   
 end
 
+qrsend(1) = [ ];
+
+
 %% Code to find mxima of each QRS wave
-rpeak = zeros(size(qrsstart));
-amp = zeros(size(qrsstart));
+rpeak = zeros(size(qrsend));
+amp = zeros(size(qrsend));
 
 % find peaks and troughs of qrs waves
-for i = 1:length(qrsstart)
+for i = 1:length(qrsend)
   [qrsmax,curind] = max(hpdata(qrsstart(i):qrsend(i)))
   rpeak(i) = curind+qrsstart(i)-1;
   [qrsmin,~] = min(hpdata(qrsstart(i):qrsend(i)));
@@ -204,6 +207,9 @@ HR = 60/rrintmean
     ylabel('Filtered ECG signal (V)')
     plot(time(samples),hpdata(samples),'b-')
     hold on
+    title('Band pass filtered signal with fiducial marks')
+    xlabel('Time (s)')
+    ylabel('Filtered ECG signal (V)')
     plot(time(rpeak(rpeak<max(samples))),hpdata(rpeak(rpeak<max(samples))),'ro')
 
 %% IF YOU HAVE TIME AT THE END OF DAY 1
