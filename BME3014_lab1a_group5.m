@@ -211,6 +211,11 @@ HR = 60/rrintmean
     xlabel('Time (s)')
     ylabel('Filtered ECG signal (V)')
     plot(time(rpeak(rpeak<max(samples))),hpdata(rpeak(rpeak<max(samples))),'ro')
+    
+    
+ save amp;
+ save rpeak;
+ save rrint;
 
 %% IF YOU HAVE TIME AT THE END OF DAY 1
 % -Determine a method to track heart rate changes over time
