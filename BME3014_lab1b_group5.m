@@ -30,7 +30,7 @@ ylabel('breath [V]')
 title('Respiration data')
 
 
-welchdata = pwelch(lpdata(lpdelay:end));
+%welchdata = pwelch(lpdata(lpdelay:end));
 
 % rosina: 
 % ok so I used
@@ -46,11 +46,11 @@ welchdata = pwelch(lpdata(lpdelay:end));
 
 
 
-figure 
-plot(lptime, welchdata)
-xlabel('time [s]')
-ylabel('breath [V]')
-title('Respiration data')
+%figure 
+%plot(lptime, welchdata)
+%xlabel('time [s]')
+%ylabel('breath [V]')
+%title('Respiration data')
 
 
 %% ok so this is the interp stuff. I got it to work but i'm not sure if it is right or what it means
@@ -64,3 +64,16 @@ y = interp1(time(rpeak(ind)),rrint(ind), time, 'pchip');
 hold on
 plot(time, y, 'm--','linewidth',2);
 plot(time(rpeak),rrint,'bo');
+
+
+%% here is my final attempt at the pwelch stuff. 
+% I'm not sure if these are the right axis so that is why they are commented
+figure;
+pwelch(lpdata(lpdelay:end),[],[],[],Fs,'onesided');
+title('Original signal');
+%axis([-2 3 -20 2]);
+
+figure;
+pwelch(y,[],[],[],Fs,'onesided');
+title('interplated, orginal frequency')
+%axis([-2 3 -20 2]);
