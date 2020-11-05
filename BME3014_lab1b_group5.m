@@ -51,3 +51,16 @@ plot(lptime, welchdata)
 xlabel('time [s]')
 ylabel('breath [V]')
 title('Respiration data')
+
+
+%% ok so this is the interp stuff. I got it to work but i'm not sure if it is right or what it means
+%pop this onto the bottom on your lab 1A because it uses the data from that
+
+rpeak = sort(rpeak);
+rpeak = rpeak(1:250); %makes rpeak equal to the length of rrint
+rrint = sort(rrint);
+[~, ind] = unique(rpeak); %removes 
+y = interp1(time(rpeak(ind)),rrint(ind), time, 'pchip');
+hold on
+plot(time, y, 'm--','linewidth',2);
+plot(time(rpeak),rrint,'bo');
