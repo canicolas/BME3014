@@ -30,6 +30,9 @@ ylabel('breath [V]')
 title('Respiration data')
 
 %% finding the respirtory rate
+minValue = min(lpdata); %helps to remove smaller peaks caused by noise
+lpbreath(lpdata < 4) = minValue; %set a threshold of 4
+
 [peaks] = findpeaks(lpdata(lpdelay:end)); %finds all max points
 peak_count = length(peaks); % finds the number of peaks/ number of breaths
 time_s = (length(lpdata(lpdelay:end))/Fs); %gets the length of time in seconds
