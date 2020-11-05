@@ -29,6 +29,13 @@ xlabel('time [s]')
 ylabel('breath [V]')
 title('Respiration data')
 
+%% finding the respirtory rate
+[peaks] = findpeaks(lpdata); %finds all max points
+peak_count = length(peaks); % finds the number of peaks/ number of breaths
+time_s = (length(lpdata)/Fs); %gets the length of time in seconds
+time_m = (time_s/60); %gets the length of time in minutes
+rpm1 = (peak_count/time_m); %outputs the rpm
+
 
 %welchdata = pwelch(lpdata(lpdelay:end));
 
