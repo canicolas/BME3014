@@ -42,48 +42,39 @@ rpm1 = (peak_count/time_m); %outputs the rpm
 
 %welchdata = pwelch(lpdata(lpdelay:end));
 
-% rosina: 
-% ok so I used
+figure
+pwelch(lpbdata(lpdelay:end),[],[],[],200)
+xlabel('time [s]')
+ylabel('breath [V]')
+title('Respiration data pwelch')
 
-% pwelch(lpdata(lpdelay:end))
-% and putting just that gives a curve that looks like the right shape, but it has a bunch of waves in it
-
-%and then i did this
-% pwelch(lpbdata(lpdelay:end),[],[],[],200)
-
-%and it looks just like the previous one, just shifted up a little
-%and i'm not sure which one is prefered
-
-
-
-%figure 
-%plot(lptime, welchdata)
-%xlabel('time [s]')
-%ylabel('breath [V]')
-%title('Respiration data')
-
-
-%% ok so this is the interp stuff. I got it to work but i'm not sure if it is right or what it means
-%pop this onto the bottom on your lab 1A because it uses the data from that
-
+%%EDA
 rpeak = sort(rpeak);
-rpeak = rpeak(1:250); %makes rpeak equal to the length of rrint
-rrint = sort(rrint);
+rpeak = rpeak(1:length(amp)); %makes rpeak equal to the length of rrint
 [~, ind] = unique(rpeak); %removes 
-y = interp1(time(rpeak(ind)),rrint(ind), time, 'pchip');
+EDA = interp1(time(rpeak(ind)),amp(ind), time, 'pchip');
+figure 
+plot(time, EDA, 'm--')
 hold on
-plot(time, y, 'm--','linewidth',2);
+plot(time(rpeak), amp, 'bo') 
+xlabel("Time [sec]")
+ylabel ("Amplitude")
+title(" EDR")
+
+%%RSA
+rpeak = sort(rpeak);
+rpeak = rpeak(1:length(rrint)); %makes rpeak equal to the length of rrint
+ [~, ind] = unique(rpeak); %removes 
+RSA = interp1(time(rpeak(ind)),rrint(ind), time, 'pchip');
+figure
+plot(time, RSA, 'm--','linewidth',2);
+hold on
 plot(time(rpeak),rrint,'bo');
+ xlabel("Time [sec]")
+ ylabel ("Amplitude")
+title(" RSA")
 
 
-%% here is my final attempt at the pwelch stuff. 
-% I'm not sure if these are the right axis so that is why they are commented
-figure;
-pwelch(lpdata(lpdelay:end),[],[],[],Fs,'onesided');
-title('Original signal');
-%axis([-2 3 -20 2]);
+RSAresp = mean(RSA(5:150));
 
-figure;
-pwelch(y,[],[],[],Fs,'onesided');
-title('interplated, orginal frequency')
-%axis([-2 3 -20 2]);
+EDAresp = mean(EDA);
